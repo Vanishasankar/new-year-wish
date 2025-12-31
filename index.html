@@ -7,18 +7,28 @@
 </head>
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
-
 <div id="app">
 
-  <!-- Scene 3: Gift -->
-  <div class="scene active" id="scene3">
+  <!-- SCENE 1 (9–12s): Distractions -->
+  <div class="scene active" id="scene1">
+    <h2>Something is waiting for you</h2>
+    <p class="sub">Move the little distractions aside</p>
+
+    <div class="cards">
+      <div class="card-float">Work</div>
+      <div class="card-float">Bad Days</div>
+      <div class="card-float">Stress</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 (12–18s): Gift -->
+  <div class="scene" id="scene2">
     <div class="sparkles"></div>
     <img src="gift.png" class="gift">
   </div>
 
-  <!-- Scene 4: Golden Ticket -->
-  <div class="scene" id="scene4">
+  <!-- SCENE 3 (18–24s): Golden Ticket -->
+  <div class="scene" id="scene3">
     <div class="ticket glow">
       <h1>GOLDEN TICKET</h1>
       <p>VALID FOR EVERY DAY AHEAD</p>
@@ -28,8 +38,8 @@
     </div>
   </div>
 
-  <!-- Scene 5: Memories -->
-  <div class="scene" id="scene5">
+  <!-- SCENE 4 (24–30s): Memories -->
+  <div class="scene" id="scene4">
     <h2>Some moments from this year</h2>
     <div class="photo-card">
       <img src="couple.png">
@@ -37,18 +47,17 @@
     <p class="hint">Tap the photo to continue</p>
   </div>
 
-  <!-- Scene 6: Final -->
-  <div class="scene" id="scene6">
+  <!-- SCENE 5 (30–32s): Final -->
+  <div class="scene" id="scene5">
     <div class="message-card">
       <h2>For my Cutiepie :)</h2>
       <p class="sub">Tap the card to read</p>
       <p>
         May this year bring you happiness, light moments,
-        growth and gentle days ahead.
+        growth, and a gentle year ahead.
       </p>
       <p>Happy New Year ✨</p>
     </div>
-    <canvas id="fireworks"></canvas>
   </div>
 
 </div>
