@@ -7,62 +7,42 @@
 </head>
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
-
 <div id="app">
 
-  <!-- Scene 1 -->
+  <!-- Scene 1: Gift -->
   <div class="scene active" id="scene1">
-    <div class="hearts"></div>
-    <div class="card">
-      <h2>A little surprise for you</h2>
-      <p>Before this year begins</p>
-      <div class="heart-btn" onclick="nextScene()">❤</div>
-      <span>Tap and hold</span>
-    </div>
+    <div class="sparkles"></div>
+    <img src="gift.png" class="gift" alt="Gift">
   </div>
 
-  <!-- Scene 2 -->
+  <!-- Scene 2: Golden Ticket -->
   <div class="scene" id="scene2">
-    <h2>Something is waiting for you</h2>
-    <p>Move the little distractions aside</p>
-
-    <div class="tags">
-      <div class="tag">Work</div>
-      <div class="tag">Stress</div>
-      <div class="tag">Bad Days</div>
-    </div>
-
-    <button onclick="nextScene()">Continue</button>
-  </div>
-
-  <!-- Scene 3 -->
-  <div class="scene" id="scene3">
-    <div class="ticket">
+    <div class="ticket glow">
       <h1>GOLDEN TICKET</h1>
-      <p>Valid for every day ahead</p>
+      <p>VALID FOR EVERY DAY AHEAD</p>
       <p>Unlimited Love & Smiles</p>
       <span>No expiration date</span>
-      <button onclick="nextScene()">CLAIM TICKET →</button>
+      <div class="claim">CLAIM TICKET →</div>
     </div>
   </div>
 
-  <!-- Scene 4 -->
-  <div class="scene" id="scene4">
+  <!-- Scene 3: Memories -->
+  <div class="scene" id="scene3">
     <h2>Some moments from this year</h2>
-    <div class="photo-card" onclick="nextScene()">
-      🌙💑🌊
+    <div class="photo-card">
+      <img src="couple.png" alt="Couple">
     </div>
-    <p>Tap the photo to continue</p>
+    <p class="hint">Tap the photo to continue</p>
   </div>
 
-  <!-- Scene 5 -->
-  <div class="scene" id="scene5">
+  <!-- Scene 4: Final Message -->
+  <div class="scene" id="scene4">
     <div class="message-card">
-      <h2 id="nameText"></h2>
+      <h2>For my Cutiepie :)</h2>
+      <p class="sub">Tap the card to read</p>
       <p>
-        May this year bring you happiness, peace, growth,
-        and endless reasons to smile.
+        May this year bring you happiness, light moments,
+        growth, and gentle days ahead.
       </p>
       <p>Happy New Year ✨</p>
     </div>
