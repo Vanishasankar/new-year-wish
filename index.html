@@ -3,207 +3,267 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy New Year 🎉</title>
+<title>Before This Year Begins</title>
 
 <style>
-/* ---------- GLOBAL ---------- */
+:root {
+  --bg:#0a0a0e;
+  --grid:rgba(255,255,255,0.035);
+  --text:#fff;
+}
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
 
 body{
-    background:#0a0a0a;
-    color:#fff;
-    overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
 }
 
-/* ---------- GRID BACKGROUND ---------- */
+/* GRID */
 body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size:40px 40px;
-    animation:gridMove 20s linear infinite;
-    z-index:-1;
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:40px 40px;
+  z-index:-1;
 }
 
-@keyframes gridMove{
-    from{background-position:0 0;}
-    to{background-position:400px 400px;}
+/* WRAPPER */
+.wrapper{
+  width:100%;
+  max-width:360px;
+  text-align:center;
+  padding:24px;
 }
 
-/* ---------- HOLD TO UNLOCK ---------- */
-#lockScreen{
-    height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    text-align:center;
+/* TITLE */
+.title{
+  font-size:22px;
+  opacity:0.9;
+  margin-bottom:42px;
 }
 
-#holdBtn{
-    margin-top:20px;
-    padding:15px 40px;
-    border:2px solid #fff;
-    border-radius:50px;
-    background:transparent;
-    color:white;
-    font-size:18px;
+/* HOLD BUTTON */
+.hold-area{
+  width:170px;
+  height:170px;
+  margin:0 auto;
+  position:relative;
 }
 
-/* ---------- MAIN CONTENT ---------- */
-#content{
-    display:none;
-    padding:40px 20px;
-    text-align:center;
+.hold-btn{
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  border:2px solid rgba(255,255,255,0.25);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  user-select:none;
 }
 
-/* ---------- CARD ---------- */
-.card{
-    width:260px;
-    height:180px;
-    margin:30px auto;
-    perspective:1000px;
+.hold-text{
+  font-size:14px;
+  opacity:0.85;
 }
 
-.card-inner{
-    width:100%;
-    height:100%;
-    position:relative;
-    transform-style:preserve-3d;
-    transition:transform 0.8s;
+/* PROGRESS */
+svg{
+  position:absolute;
+  inset:0;
+  transform:rotate(-90deg);
 }
 
-.card:hover .card-inner{
-    transform:rotateY(180deg);
+circle{
+  fill:none;
+  stroke:#fff;
+  stroke-width:4;
+  stroke-dasharray:472;
+  stroke-dashoffset:472;
 }
 
-.card-front,
-.card-back{
-    position:absolute;
-    width:100%;
-    height:100%;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    backface-visibility:hidden;
+/* MESSAGE */
+.message{
+  display:none;
+  animation:reveal 1s ease forwards;
 }
 
-.card-front{
-    background:#ff9800;
+.message h2{
+  font-size:26px;
+  margin-bottom:14px;
 }
 
-.card-back{
-    background:#4caf50;
-    transform:rotateY(180deg);
-    padding:15px;
+.message p{
+  font-size:16px;
+  line-height:1.7;
+  opacity:0.85;
 }
 
-/* ---------- GALLERY ---------- */
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:15px;
-    margin-top:30px;
+/* MUSIC BUTTON */
+.music-btn{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#fff;
+  color:#000;
+  border-radius:50%;
+  padding:10px 12px;
+  cursor:pointer;
+  font-size:14px;
+  display:none;
 }
 
-.gallery img{
-    width:100%;
-    border-radius:12px;
-    transition:transform 0.3s;
+/* FIREWORKS */
+canvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
 }
 
-.gallery img:hover{
-    transform:scale(1.05);
-}
-
-/* ---------- FOOTER ---------- */
-footer{
-    margin-top:40px;
-    opacity:0.7;
-    font-size:14px;
+/* ANIM */
+@keyframes reveal{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
 
 <body>
 
-<!-- Background Music -->
-<audio id="music" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5a7a1e0c13.mp3" type="audio/mp3">
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-    <h1>✨ Welcome 2025 ✨</h1>
-    <p>Hold to unlock your New Year message</p>
-    <button id="holdBtn">Hold Me</button>
+<div class="music-btn" id="musicBtn">🎵</div>
+<canvas id="fireworks"></canvas>
+
+<!-- LOCK -->
+<div class="wrapper" id="lock">
+  <div class="title">Before this year begins</div>
+
+  <div class="hold-area">
+    <svg width="170" height="170">
+      <circle cx="85" cy="85" r="75" id="progress"/>
+    </svg>
+
+    <div class="hold-btn" id="holdBtn">
+      <div class="hold-text">Tap and hold</div>
+    </div>
+  </div>
 </div>
 
-<!-- MAIN CONTENT -->
-<div id="content">
-    <h1>🎉 Happy New Year 🎉</h1>
-    <p>May this year bring happiness, success & good health.</p>
-
-    <!-- Flip Card -->
-    <div class="card">
-        <div class="card-inner">
-            <div class="card-front">
-                <h3>Tap Me 🎁</h3>
-            </div>
-            <div class="card-back">
-                <p>New beginnings, new hopes, new dreams ✨</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gallery -->
-    <h2>📸 Memories</h2>
-    <div class="gallery">
-        <img src="https://picsum.photos/300/200?1">
-        <img src="https://picsum.photos/300/200?2">
-        <img src="https://picsum.photos/300/200?3">
-        <img src="https://picsum.photos/300/200?4">
-    </div>
-
-    <footer>
-        Made with ❤️ for New Year
-    </footer>
+<!-- MESSAGE -->
+<div class="wrapper message" id="content">
+  <h2 id="greeting">✨ Happy New Year ✨</h2>
+  <p>
+    May this year bring you clarity,<br>
+    peace, success, and happiness.<br><br>
+    You matter ❤️
+  </p>
 </div>
 
 <script>
-/* ---------- HOLD TO UNLOCK ---------- */
-let timer;
+/* ---------- NAME FROM URL ---------- */
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name") || "Friend";
+document.getElementById("greeting").innerText =
+  `✨ Happy New Year, ${name}! ✨`;
+
+/* ---------- HOLD LOGIC ---------- */
 const btn = document.getElementById("holdBtn");
+const ring = document.getElementById("progress");
+const lock = document.getElementById("lock");
+const content = document.getElementById("content");
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
 
-btn.addEventListener("mousedown", startHold);
-btn.addEventListener("touchstart", startHold);
+let holding=false,value=0,timer;
 
-btn.addEventListener("mouseup", cancelHold);
-btn.addEventListener("mouseleave", cancelHold);
-btn.addEventListener("touchend", cancelHold);
-
-function startHold(){
-    timer = setTimeout(unlock, 1500);
+function start(){
+  if(holding) return;
+  holding=true;
+  timer=setInterval(()=>{
+    value++;
+    ring.style.strokeDashoffset=472-(472*value/100);
+    if(value>=100) finish();
+  },28);
 }
 
-function cancelHold(){
-    clearTimeout(timer);
+function stop(){
+  holding=false;
+  clearInterval(timer);
+  value=0;
+  ring.style.strokeDashoffset=472;
 }
 
-function unlock(){
-    document.getElementById("lockScreen").style.display="none";
-    document.getElementById("content").style.display="block";
-    document.getElementById("music").play();
+function finish(){
+  clearInterval(timer);
+  lock.style.display="none";
+  content.style.display="block";
+  music.play();
+  musicBtn.style.display="block";
+  startFireworks();
 }
+
+btn.addEventListener("mousedown",start);
+btn.addEventListener("touchstart",start);
+document.addEventListener("mouseup",stop);
+document.addEventListener("touchend",stop);
+
+/* ---------- MUSIC TOGGLE ---------- */
+musicBtn.onclick=()=>music.paused?music.play():music.pause();
+
+/* ---------- FIREWORKS ---------- */
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+function firework(){
+  const x=Math.random()*canvas.width;
+  const y=Math.random()*canvas.height/2;
+  for(let i=0;i<80;i++){
+    const angle=Math.random()*Math.PI*2;
+    const speed=Math.random()*5+2;
+    let px=x,py=y,life=60;
+    (function animate(){
+      if(life<=0) return;
+      px+=Math.cos(angle)*speed;
+      py+=Math.sin(angle)*speed;
+      ctx.fillStyle="rgba(255,255,255,0.8)";
+      ctx.fillRect(px,py,2,2);
+      life--;
+      requestAnimationFrame(animate);
+    })();
+  }
+}
+
+function startFireworks(){
+  setInterval(()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    firework();
+  },700);
+}
+
+window.onresize=()=>{
+  canvas.width=innerWidth;
+  canvas.height=innerHeight;
+};
 </script>
 
 </body>
