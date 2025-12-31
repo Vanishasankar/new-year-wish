@@ -1,270 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Before This Year Begins</title>
-
-<style>
-:root {
-  --bg:#0a0a0e;
-  --grid:rgba(255,255,255,0.035);
-  --text:#fff;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-}
-
-/* GRID */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(var(--grid) 1px,transparent 1px),
-    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:40px 40px;
-  z-index:-1;
-}
-
-/* WRAPPER */
-.wrapper{
-  width:100%;
-  max-width:360px;
-  text-align:center;
-  padding:24px;
-}
-
-/* TITLE */
-.title{
-  font-size:22px;
-  opacity:0.9;
-  margin-bottom:42px;
-}
-
-/* HOLD BUTTON */
-.hold-area{
-  width:170px;
-  height:170px;
-  margin:0 auto;
-  position:relative;
-}
-
-.hold-btn{
-  width:170px;
-  height:170px;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,0.25);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  cursor:pointer;
-  user-select:none;
-}
-
-.hold-text{
-  font-size:14px;
-  opacity:0.85;
-}
-
-/* PROGRESS */
-svg{
-  position:absolute;
-  inset:0;
-  transform:rotate(-90deg);
-}
-
-circle{
-  fill:none;
-  stroke:#fff;
-  stroke-width:4;
-  stroke-dasharray:472;
-  stroke-dashoffset:472;
-}
-
-/* MESSAGE */
-.message{
-  display:none;
-  animation:reveal 1s ease forwards;
-}
-
-.message h2{
-  font-size:26px;
-  margin-bottom:14px;
-}
-
-.message p{
-  font-size:16px;
-  line-height:1.7;
-  opacity:0.85;
-}
-
-/* MUSIC BUTTON */
-.music-btn{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#fff;
-  color:#000;
-  border-radius:50%;
-  padding:10px 12px;
-  cursor:pointer;
-  font-size:14px;
-  display:none;
-}
-
-/* FIREWORKS */
-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-}
-
-/* ANIM */
-@keyframes reveal{
-  from{opacity:0;transform:translateY(14px)}
-  to{opacity:1;transform:translateY(0)}
-}
-</style>
+  <meta charset="UTF-8">
+  <title>New Year Surprise</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" src="music.mp3" loop></audio>
 
-<div class="music-btn" id="musicBtn">🎵</div>
-<canvas id="fireworks"></canvas>
+<div id="app">
 
-<!-- LOCK -->
-<div class="wrapper" id="lock">
-  <div class="title">Before this year begins</div>
-
-  <div class="hold-area">
-    <svg width="170" height="170">
-      <circle cx="85" cy="85" r="75" id="progress"/>
-    </svg>
-
-    <div class="hold-btn" id="holdBtn">
-      <div class="hold-text">Tap and hold</div>
+  <!-- Scene 1 -->
+  <div class="scene active" id="scene1">
+    <div class="hearts"></div>
+    <div class="card">
+      <h2>A little surprise for you</h2>
+      <p>Before this year begins</p>
+      <div class="heart-btn" onclick="nextScene()">❤</div>
+      <span>Tap and hold</span>
     </div>
   </div>
+
+  <!-- Scene 2 -->
+  <div class="scene" id="scene2">
+    <h2>Something is waiting for you</h2>
+    <p>Move the little distractions aside</p>
+
+    <div class="tags">
+      <div class="tag">Work</div>
+      <div class="tag">Stress</div>
+      <div class="tag">Bad Days</div>
+    </div>
+
+    <button onclick="nextScene()">Continue</button>
+  </div>
+
+  <!-- Scene 3 -->
+  <div class="scene" id="scene3">
+    <div class="ticket">
+      <h1>GOLDEN TICKET</h1>
+      <p>Valid for every day ahead</p>
+      <p>Unlimited Love & Smiles</p>
+      <span>No expiration date</span>
+      <button onclick="nextScene()">CLAIM TICKET →</button>
+    </div>
+  </div>
+
+  <!-- Scene 4 -->
+  <div class="scene" id="scene4">
+    <h2>Some moments from this year</h2>
+    <div class="photo-card" onclick="nextScene()">
+      🌙💑🌊
+    </div>
+    <p>Tap the photo to continue</p>
+  </div>
+
+  <!-- Scene 5 -->
+  <div class="scene" id="scene5">
+    <div class="message-card">
+      <h2 id="nameText"></h2>
+      <p>
+        May this year bring you happiness, peace, growth,
+        and endless reasons to smile.
+      </p>
+      <p>Happy New Year ✨</p>
+    </div>
+    <canvas id="fireworks"></canvas>
+  </div>
+
 </div>
 
-<!-- MESSAGE -->
-<div class="wrapper message" id="content">
-  <h2 id="greeting">✨ Happy New Year ✨</h2>
-  <p>
-    May this year bring you clarity,<br>
-    peace, success, and happiness.<br><br>
-    You matter ❤️
-  </p>
-</div>
-
-<script>
-/* ---------- NAME FROM URL ---------- */
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name") || "Friend";
-document.getElementById("greeting").innerText =
-  `✨ Happy New Year, ${name}! ✨`;
-
-/* ---------- HOLD LOGIC ---------- */
-const btn = document.getElementById("holdBtn");
-const ring = document.getElementById("progress");
-const lock = document.getElementById("lock");
-const content = document.getElementById("content");
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
-
-let holding=false,value=0,timer;
-
-function start(){
-  if(holding) return;
-  holding=true;
-  timer=setInterval(()=>{
-    value++;
-    ring.style.strokeDashoffset=472-(472*value/100);
-    if(value>=100) finish();
-  },28);
-}
-
-function stop(){
-  holding=false;
-  clearInterval(timer);
-  value=0;
-  ring.style.strokeDashoffset=472;
-}
-
-function finish(){
-  clearInterval(timer);
-  lock.style.display="none";
-  content.style.display="block";
-  music.play();
-  musicBtn.style.display="block";
-  startFireworks();
-}
-
-btn.addEventListener("mousedown",start);
-btn.addEventListener("touchstart",start);
-document.addEventListener("mouseup",stop);
-document.addEventListener("touchend",stop);
-
-/* ---------- MUSIC TOGGLE ---------- */
-musicBtn.onclick=()=>music.paused?music.play():music.pause();
-
-/* ---------- FIREWORKS ---------- */
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
-
-function firework(){
-  const x=Math.random()*canvas.width;
-  const y=Math.random()*canvas.height/2;
-  for(let i=0;i<80;i++){
-    const angle=Math.random()*Math.PI*2;
-    const speed=Math.random()*5+2;
-    let px=x,py=y,life=60;
-    (function animate(){
-      if(life<=0) return;
-      px+=Math.cos(angle)*speed;
-      py+=Math.sin(angle)*speed;
-      ctx.fillStyle="rgba(255,255,255,0.8)";
-      ctx.fillRect(px,py,2,2);
-      life--;
-      requestAnimationFrame(animate);
-    })();
-  }
-}
-
-function startFireworks(){
-  setInterval(()=>{
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    firework();
-  },700);
-}
-
-window.onresize=()=>{
-  canvas.width=innerWidth;
-  canvas.height=innerHeight;
-};
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
