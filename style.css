@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #0d0b1f;
+  background: radial-gradient(circle, #140d2d, #02010a);
   color: white;
   height: 100vh;
   overflow: hidden;
@@ -16,66 +16,96 @@ body {
   display: none;
   height: 100vh;
   width: 100vw;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   text-align: center;
-  padding: 40px;
 }
 
 .scene.active {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-.card, .ticket, .message-card {
-  background: rgba(255,255,255,0.08);
-  padding: 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.heart-btn {
-  font-size: 40px;
-  margin: 20px;
-  cursor: pointer;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-.tags {
-  display: flex;
-  gap: 15px;
-  margin: 30px;
-}
-
-.tag {
-  background: #ff5fa2;
-  padding: 10px 20px;
-  border-radius: 20px;
-  animation: float 3s infinite ease-in-out;
+/* Gift */
+.gift {
+  width: 180px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px #ff7ac8);
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Sparkles */
+.sparkles::before {
+  content: "✨ ✦ ✨ ✦ ✨";
+  font-size: 30px;
+  animation: sparkle 2s infinite alternate;
+}
+
+@keyframes sparkle {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+/* Ticket */
+.ticket {
+  background: rgba(255, 215, 0, 0.15);
+  border-radius: 20px;
+  padding: 30px;
+  width: 300px;
+}
+
+.glow {
+  box-shadow: 0 0 25px gold;
 }
 
 .ticket h1 {
   color: gold;
 }
 
-.photo-card {
-  font-size: 50px;
-  background: rgba(255,255,255,0.1);
-  padding: 40px;
+.claim {
+  margin-top: 15px;
+  color: gold;
+  font-weight: bold;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.1); }
+}
+
+/* Memories */
+.photo-card img {
+  width: 260px;
   border-radius: 20px;
-  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+  transition: transform 0.5s;
+}
+
+.photo-card img:hover {
+  transform: scale(1.05);
+}
+
+.hint {
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+/* Final message */
+.message-card {
+  background: rgba(255,255,255,0.1);
+  padding: 30px;
+  border-radius: 20px;
+  width: 85%;
+  max-width: 400px;
+}
+
+.sub {
+  opacity: 0.7;
+  margin-bottom: 10px;
 }
 
 canvas {
