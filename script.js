@@ -1,44 +1,37 @@
-let current = 0;
-const scenes = document.querySelectorAll('.scene');
-const music = document.getElementById('bgMusic');
+const scenes = document.querySelectorAll(".scene");
+let index = 0;
 
-function nextScene() {
-  scenes[current].classList.remove('active');
-  current++;
-  scenes[current].classList.add('active');
-
-  if (current === 1) music.play();
-  if (current === 4) startFireworks();
+function showScene(i) {
+  scenes.forEach(scene => scene.classList.remove("active"));
+  scenes[i].classList.add("active");
 }
 
-// Custom name via URL
-const params = new URLSearchParams(window.location.search);
-const name = params.get("name") || "My Cutiepie 💖";
-document.getElementById("nameText").innerText = `For ${name}`;
+// Timeline (matches your seconds)
+setTimeout(() => showScene(1), 18000); // Gift → Ticket
+setTimeout(() => showScene(2), 24000); // Ticket → Memories
+setTimeout(() => showScene(3), 30000); // Memories → Final
 
 // Fireworks
-function startFireworks() {
-  const canvas = document.getElementById("fireworks");
+const canvas = document.getElementById("fireworks");
+if (canvas) {
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  function draw() {
+  function fireworks() {
     ctx.fillStyle = "rgba(0,0,0,0.2)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+    ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
     ctx.beginPath();
     ctx.arc(
       Math.random()*canvas.width,
       Math.random()*canvas.height,
-      Math.random()*3+1,
+      2,
       0,
       Math.PI*2
     );
     ctx.fill();
-
-    requestAnimationFrame(draw);
+    requestAnimationFrame(fireworks);
   }
-  draw();
+  fireworks();
 }
